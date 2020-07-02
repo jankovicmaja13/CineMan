@@ -8,13 +8,15 @@ import { MovieDetailsPageRoutingModule } from './movie-details-routing.module';
 
 import { MovieDetailsPage } from './movie-details.page';
 import { MovieModalComponent} from '../movie-modal/movie-modal.component';
+import { IonicRatingModule } from 'ionic-rating';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MovieDetailsPageRoutingModule
+    MovieDetailsPageRoutingModule,
+    IonicRatingModule
   ],
   declarations: [MovieDetailsPage, MovieModalComponent],
   entryComponents: [MovieModalComponent]

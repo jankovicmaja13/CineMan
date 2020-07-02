@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchText" animated clearIcon color="secondary" placeholder="Enter text to search">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-list>
+        <app-show-element *ngFor="let s of series | appFilter: searchText" [show]="s" ></app-show-element>
+      </ion-list>
+    </ion-row>
+  </ion-grid>
+</ion-content>

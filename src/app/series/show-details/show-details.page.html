@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/series">
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-fab-button size="small" color="tertiary" (click)="onEditShow()">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button size="small" color="tertiary" (click)="onDeleteShow()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-text-center" *ngIf="isLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+
+  <ion-card *ngIf="!isLoading">
+    <ion-img [src]="show.image"></ion-img>
+    <ion-card-header>
+      <ion-card-title>
+        <h1>{{show.name}}</h1>
+        <ion-label class="myLabel">Average grade: </ion-label> {{average}}
+        <ion-rating [(ngModel)]="rate"></ion-rating>
+        <ion-button type="submit" color="primary" expand="block" (click)="onRateSubmit()" [disabled]="submitted">
+          Rate
+        </ion-button>
+        <ion-button type="submit" color="primary" expand="block" (click)="onRateRemove()" [disabled]="!submitted">
+          Remove rate
+        </ion-button>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid class="myGrid">
+        <ion-row>
+          <ion-label class="myLabel">Producer: </ion-label> {{show.producer}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Description: </ion-label> {{show.description}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Genre: </ion-label> {{show.genre.name}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Country: </ion-label> {{show.country}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Year: </ion-label> {{show.year}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Number of seasons: </ion-label> {{show.numberOfSeasons}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Average duration of episode: </ion-label> {{show.averageDuration}}
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

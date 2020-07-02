@@ -5,6 +5,11 @@ import { take, switchMap, map, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Movie } from 'src/app/model/movie.model';
+import { Rating } from 'src/app/model/rating.model';
+import { Category } from 'src/app/model/category.model';
+import { Actor } from 'src/app/model/actor.model';
+import { Content } from 'src/app/model/content.model';
+import { Award } from 'src/app/model/award.model';
 
 interface GenreData {
   name: string;
@@ -21,6 +26,18 @@ export interface MovieData {
   budget: number;
   duration: number;
   fetchedUserId: string;
+  grade: number;
+  peopleRated: number;
+}
+
+export interface RatingData{
+  user: string;
+  movieID: string;
+  rate: number;
+}
+
+export interface CategoryData{
+  name: string;
 }
 
 @Injectable({
@@ -31,6 +48,10 @@ export class MovieService {
   private _genres = new BehaviorSubject<Genre[]>([]);
   // tslint:disable-next-line: variable-name
   private _movies = new BehaviorSubject<Movie[]>([]);
+  // tslint:disable-next-line: variable-name
+  private _ratings = new BehaviorSubject<Rating[]>([]);
+  // tslint:disable-next-line: variable-name
+  private _categories = new BehaviorSubject<Category[]>([]);
 
   constructor(private authService: AuthService, private http: HttpClient) { }
 
@@ -40,6 +61,12 @@ export class MovieService {
 
   get movies() {
     return this._movies.asObservable();
+  }
+  get ratings() {
+    return this._ratings.asObservable();
+  }
+  get categories() {
+    return this._categories.asObservable();
   }
 
   getGenres() {
@@ -73,6 +100,39 @@ export class MovieService {
 
   }
 
+  getRatings() {
+    console.log('getRatings service');
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.http
+          .get<{ [key: string]: RatingData }>(
+            `https://movies-app-6bff9.firebaseio.com/ratings.json?auth=${token}`
+          );
+      }),
+      map((ratingData) => {
+        console.log(ratingData);
+        const ratings: Rating[] = [];
+        for (const key in ratingData) {
+          if (ratingData.hasOwnProperty(key)) {
+            ratings.push(
+              new Rating(
+                key,
+                ratingData[key].user,
+                ratingData[key].movieID,
+                ratingData[key].rate
+              ));
+          }
+        }
+        return ratings;
+      }),
+      tap(ratings => {
+        this._ratings.next(ratings);
+      })
+    );
+
+  }
+
   getMovies() {
     console.log('getMovies service');
     return this.authService.token.pipe(
@@ -100,7 +160,9 @@ export class MovieService {
                 moviesData[key].genre,
                 moviesData[key].budget,
                 moviesData[key].duration,
-                moviesData[key].fetchedUserId
+                moviesData[key].fetchedUserId,
+                moviesData[key].grade,
+                moviesData[key].peopleRated
 
               ));
           }
@@ -109,6 +171,37 @@ export class MovieService {
       }),
       tap(movies => {
         this._movies.next(movies);
+      })
+    );
+
+  }
+
+  getCategories() {
+    console.log('getCategories service');
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.http
+          .get<{ [key: string]: CategoryData }>(
+            `https://movies-app-6bff9.firebaseio.com/category.json?auth=${token}`
+          );
+      }),
+      map((categoryData) => {
+        console.log(categoryData);
+        const categories: Category[] = [];
+        for (const key in categoryData) {
+          if (categoryData.hasOwnProperty(key)) {
+            categories.push(
+              new Category(
+                key,
+                categoryData[key].name
+              ));
+          }
+        }
+        return categories;
+      }),
+      tap(categories => {
+        this._categories.next(categories);
       })
     );
 
@@ -148,6 +241,39 @@ export class MovieService {
       })
     );
   }
+
+  addRating(rating: Rating) {
+    let fetchedUserId: string;
+    let generatedId;
+
+    return this.authService.userId.pipe(
+      take(1),
+      switchMap(userId => {
+        fetchedUserId = userId;
+        return this.authService.token;
+      }),
+      take(1),
+      switchMap((token) => {
+        return this.http
+          .post<{ name: string }>(
+            `https://movies-app-6bff9.firebaseio.com/ratings.json?auth=${token}`,
+            rating
+          );
+      }),
+      switchMap((resData) => {
+        generatedId = resData.name;
+        return this.ratings;
+      }),
+      take(1),
+      tap((ratings) => {
+        rating.id = generatedId;
+        this._ratings.next(
+          ratings.concat(rating)
+        );
+      })
+    );
+  }
+
   getMovie(id: string) {
     return this.authService.token.pipe(
       take(1),
@@ -168,7 +294,9 @@ export class MovieService {
           resData.genre,
           resData.budget,
           resData.duration,
-          resData.fetchedUserId
+          resData.fetchedUserId,
+          resData.grade,
+          resData.peopleRated
         );
       })
     );
@@ -188,6 +316,23 @@ export class MovieService {
       take(1),
       tap((movies) => {
         this._movies.next(movies.filter((m) => m.id !== id));
+      })
+    );
+  }
+
+  deleteRating(id: string) {
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.http
+          .delete(`https://movies-app-6bff9.firebaseio.com/ratings/${id}.json?auth=${token}`);
+      }),
+      switchMap(() => {
+        return this.ratings;
+      }),
+      take(1),
+      tap((ratings) => {
+        this._ratings.next(ratings.filter((r) => r.id !== id));
       })
     );
   }

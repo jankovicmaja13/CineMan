@@ -28,6 +28,14 @@
     <ion-card-header>
       <ion-card-title>
         <h1>{{movie.name}}</h1>
+        <ion-label class="myLabel">Average grade: </ion-label> {{average}}
+        <ion-rating [(ngModel)]="rate"></ion-rating>
+        <ion-button type="submit" color="primary" expand="block" (click)="onRateSubmit()" [disabled]="submitted">
+          Rate
+        </ion-button>
+        <ion-button type="submit" color="primary" expand="block" (click)="onRateRemove()" [disabled]="!submitted">
+          Remove rate
+        </ion-button>
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>

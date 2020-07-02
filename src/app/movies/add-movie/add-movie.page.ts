@@ -67,7 +67,7 @@ export class AddMoviePage implements OnInit {
   onAddMovie(form: NgForm) {
     if (form.valid) {
       this.movieToAdd = new Movie(null, form.value.name, form.value.producer, form.value.image, form.value.description, form.value.year,
-        form.value.country, form.value.genre, form.value.budget, form.value.duration, null);
+        form.value.country, form.value.genre, form.value.budget, form.value.duration, null, 0,0);
 
       console.log(this.movieToAdd.genre.name);
       this.movieService

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<super-tabs>
+  <super-tabs-toolbar color = "tertiary">
+      <super-tab-button>
+          <ion-icon name="recording-outline"></ion-icon>
+          <ion-label>Popular</ion-label>
+      </super-tab-button>
+      <super-tab-button>
+          <ion-icon name="search-outline"></ion-icon>
+          <ion-label>Search</ion-label>
+      </super-tab-button>
+      <super-tab-button>
+          <ion-icon name="add-outline"></ion-icon>
+          <ion-label>Add</ion-label>
+      </super-tab-button>
+  </super-tabs-toolbar>
+  <super-tabs-container swipeEnabled=false>
+    <super-tab>
+        <ion-content>
+            <ion-nav [root]="popular"></ion-nav>
+        </ion-content>
+    </super-tab>
+    <super-tab>
+        <ion-content>
+            <ion-nav [root]="search"></ion-nav>
+        </ion-content>
+    </super-tab>
+    <super-tab>
+        <ion-content>
+            <ion-nav [root]="add"></ion-nav>
+        </ion-content>
+    </super-tab>
+  </super-tabs-container>
+</super-tabs>
+
+
+
+<ion-content>
+   
+</ion-content>

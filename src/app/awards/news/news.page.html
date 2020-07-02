@@ -1,0 +1,54 @@
+<ion-content>
+
+    <h1 class="category">Categories</h1>
+
+    <div *ngIf="!isLoading">
+        <div *ngFor="let c of categories ">
+            <h2 class="catName">{{c.name}}</h2>
+            <div *ngFor="let a of awards | categoryPipe : c.name ">
+                <h3 class="award">{{a.name}}</h3>
+                <ion-grid fixed=true>
+                    <ion-row class="cards">
+                        <ion-col size-sm="3" offset="3" style="margin-left: 0;">
+                            <ion-card *ngIf="!isLoading" [routerLink]="['/','celebs', a.actor.id]">
+                                <ion-img [src]="a.actor.image" style="height: 90px;width: 90px;"></ion-img>
+                                <ion-card-header>
+                                    <ion-card-title>
+                                        {{a.actor.name}}
+                                    </ion-card-title>
+                                </ion-card-header>
+                            </ion-card>
+                        </ion-col>
+                        <ion-col size-sm="3">
+                            <ng-container *ngIf="!isLoading && includes(a.content.name); then movies; else series">
+                            </ng-container>
+                            <ng-template #movies>
+                                <ion-card [routerLink]= "['/','movies', a.content.id]">
+                                    <ion-img [src]="a.content.image" style="height: 90px;width: 90px;"></ion-img>
+                                    <ion-card-header>
+                                        <ion-card-title>
+                                            {{a.content.name}}
+                                        </ion-card-title>
+                                    </ion-card-header>
+                                </ion-card>
+                            </ng-template>
+                            <ng-template #series>
+                                <ion-card [routerLink]= "['/','series', a.content.id]">
+                                    <ion-img [src]="a.content.image" style="height: 90px;width: 90px;"></ion-img>
+                                    <ion-card-header>
+                                        <ion-card-title>
+                                           {{a.content.name}}
+                                        </ion-card-title>
+                                    </ion-card-header>
+                                </ion-card>
+                            </ng-template>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+    </div>
+
+
+
+</ion-content>

@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="primary">
+          <ion-button (click)="onCancel()">
+              <ion-icon name="close"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onEditShow()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label class="myLabel" position="floating">Name</ion-label>
+            <ion-input type="text" [ngModel]="show.name" name = "name" required minlength="2" #name="ngModel"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="name.invalid && name.touched">
+            <ion-label>Name should be at least 2 characters long.</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label  class="myLabel" position="floating">Producer</ion-label>
+            <ion-input type="text" [ngModel]="show.producer" name="producer" required minlength="2" #producer="ngModel"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="producer.invalid && producer.touched">
+            <ion-label>Producer's name should be at least 2 characters long.</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label class="myLabel" position="floating">Image url</ion-label>
+            <ion-input type="text" [ngModel]="show.image" name="image" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label  class="myLabel" position="floating">Description</ion-label>
+            <ion-textarea type="text" rows="6" [ngModel]="show.description" name="description" required maxlength = "250" #description="ngModel"></ion-textarea>
+          </ion-item>
+          <ion-item lines="none" *ngIf="description.invalid && description.touched">
+            <ion-label>250 characters max.</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label  class="myLabel" position="floating">Year</ion-label>
+            <ion-select [(ngModel)] = "show.year" name="year">
+              <ion-select-option  *ngFor="let year of years">{{year}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item> 
+            <ion-label  class="myLabel" position="floating">Genre</ion-label>
+            <ion-select [(ngModel)] = "genre" name="genre"> 
+              <ion-select-option [value]="genre" *ngFor="let genre of genres">{{genre.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label  class="myLabel" position="floating">Country</ion-label>
+            <ion-input type="text" [ngModel]="show.country" name="country" required required minlength="2" #country="ngModel"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="country.invalid && country.touched">
+            <ion-label>Name of country should be at least 2 characters long.</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label  class="myLabel" position="floating">Budget($)</ion-label>
+            <ion-input type="number" [ngModel]="show.numberOfSeasons" name="numberOfSeasons" required min="0" #numberOfSeasons="ngModel"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="numberOfSeasons.invalid && numberOfSeasonstouched">
+            <ion-label>Should be positive.</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label  class="myLabel" position="floating">Average duration of episode(mins)</ion-label>
+            <ion-input type="number" placeholder="mins" [ngModel]="show.averageDuration" name="averageDuration" required min="1" #averageDuration="ngModel"></ion-input>
+          </ion-item>
+          <ion-item lines="none" *ngIf="averageDuration.invalid && averageDuration.touched">
+            <ion-label>Should be greater than 1.</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button type="submit" color="primary" expand="block" [disabled]="f.invalid">
+            Update
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

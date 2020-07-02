@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PopularMoviesPage } from './popular-movies.page';
 import { MbscModule } from '@mobiscroll/angular';
 import { GenrePipePipe } from '../genre-pipe.pipe';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MbscModule
+    MbscModule,
+    RouterModule
   ],
   declarations: [PopularMoviesPage, GenrePipePipe],
   entryComponents: [PopularMoviesPage],

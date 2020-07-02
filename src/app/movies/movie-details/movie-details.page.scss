@@ -6,3 +6,21 @@
 .myGrid{
     font-size: medium;
 }
+
+ion-rating{
+    --color:white !important;
+    --color-focused: blue !important;
+    --color-activated: red !important;
+}
+ion-button{
+    --color:white !important;
+    --color-focused: blue !important;
+    --color-activated: red !important;
+}
+ion-button.filled{
+    --color: white !important;
+    --color-focused: blue !important;
+    --color-activated: red !important;
+}
+
+

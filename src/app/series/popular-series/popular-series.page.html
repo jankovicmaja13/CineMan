@@ -1,0 +1,56 @@
+<ion-content>
+
+    <h1>Most popular genres</h1>
+
+
+    <div class="custom-card-deck">
+        <h2>{{first}}</h2>
+        <mbsc-listview [options]="cycleSettings">
+            <mbsc-listview-item *ngFor="let s of series | genrePipe : first">
+                <mbsc-card class="custom-card custom-card-rotate-right" [routerLink]="['/','series', s.id]">
+                    <mbsc-card-header>
+                        <mbsc-card-title>{{s.name}}</mbsc-card-title>
+                        <mbsc-card-subtitle>{{s.description}}</mbsc-card-subtitle>
+                    </mbsc-card-header>
+                    <mbsc-card-content>
+                        <img class="image" draggable="false" [src]="s.image">
+                    </mbsc-card-content>
+                </mbsc-card>
+            </mbsc-listview-item>
+        </mbsc-listview>
+    </div>
+    <div class="custom-card-deck">
+        <h2>{{second}}</h2>
+        <mbsc-listview [options]="cycleSettings">
+            <mbsc-listview-item *ngFor="let s of series | genrePipe : second">
+                <mbsc-card class="custom-card custom-card-rotate-right" [routerLink]="['/','series', s.id]">
+                    <mbsc-card-header>
+                        <mbsc-card-title>{{s.name}}</mbsc-card-title>
+                        <mbsc-card-subtitle>{{s.description}}</mbsc-card-subtitle>
+                    </mbsc-card-header>
+                    <mbsc-card-content>
+                        <img draggable="false" [src]="s.image">
+                    </mbsc-card-content>
+                </mbsc-card>
+            </mbsc-listview-item>
+        </mbsc-listview>
+    </div>
+    <div class="custom-card-deck">
+        <h2>{{third}}</h2>
+        <mbsc-listview [options]="cycleSettings">
+            <mbsc-listview-item *ngFor="let s of series | genrePipe : third" >
+                <mbsc-card class="custom-card custom-card-rotate-right" [routerLink]="['/','series', s.id]">
+                    <mbsc-card-header>
+                        <mbsc-card-title>{{s.name}}</mbsc-card-title>
+                        <mbsc-card-subtitle>{{s.description}}</mbsc-card-subtitle>
+                    </mbsc-card-header>
+                    <mbsc-card-content>
+                        <img draggable="false" [src]="s.image">
+                    </mbsc-card-content>
+                </mbsc-card>
+            </mbsc-listview-item>
+        </mbsc-listview>
+    </div>
+
+
+</ion-content>

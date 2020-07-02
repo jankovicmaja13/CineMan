@@ -7,7 +7,7 @@
         <h2>{{first}}</h2>
         <mbsc-listview [options]="cycleSettings">
             <mbsc-listview-item *ngFor="let m of movies | genrePipe : first">
-                <mbsc-card class="custom-card custom-card-rotate-right">
+                <mbsc-card class="custom-card custom-card-rotate-right" [routerLink]="['/','movies', m.id]">
                     <mbsc-card-header>
                         <mbsc-card-title>{{m.name}}</mbsc-card-title>
                         <mbsc-card-subtitle>{{m.description}}</mbsc-card-subtitle>
@@ -23,7 +23,7 @@
         <h2>{{second}}</h2>
         <mbsc-listview [options]="cycleSettings">
             <mbsc-listview-item *ngFor="let m of movies | genrePipe : second">
-                <mbsc-card class="custom-card custom-card-rotate-right">
+                <mbsc-card class="custom-card custom-card-rotate-right" [routerLink]="['/','movies', m.id]">
                     <mbsc-card-header>
                         <mbsc-card-title>{{m.name}}</mbsc-card-title>
                         <mbsc-card-subtitle>{{m.description}}</mbsc-card-subtitle>
@@ -39,7 +39,7 @@
         <h2>{{third}}</h2>
         <mbsc-listview [options]="cycleSettings">
             <mbsc-listview-item *ngFor="let m of movies | genrePipe : third">
-                <mbsc-card class="custom-card custom-card-rotate-right">
+                <mbsc-card class="custom-card custom-card-rotate-right" [routerLink]="['/','movies', m.id]">
                     <mbsc-card-header>
                         <mbsc-card-title>{{m.name}}</mbsc-card-title>
                         <mbsc-card-subtitle>{{m.description}}</mbsc-card-subtitle>

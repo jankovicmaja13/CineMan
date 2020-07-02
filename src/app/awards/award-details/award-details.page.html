@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/movies">
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-fab-button size="small" color="tertiary" (click)="onEditMovie()">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button size="small" color="tertiary" (click)="onDeleteMovie()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-text-center" *ngIf="isLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+
+  <ion-card *ngIf="!isLoading">
+    <ion-img [src]="award.image"></ion-img>
+    <ion-card-header>
+      <ion-card-title>
+        <h1>{{award.name}}</h1>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid class="myGrid">
+        <ion-row>
+          <ion-label class="myLabel">Category: </ion-label> {{award.category}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Actor: </ion-label> {{award.actor.name}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Movie: </ion-label> {{award.content.name}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Date: </ion-label> {{award.date}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Description: </ion-label> {{award.description}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Country: </ion-label> {{award.country}}
+        </ion-row>
+        <ion-row>
+          <ion-label class="myLabel">Director: </ion-label> {{award.director}}
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
